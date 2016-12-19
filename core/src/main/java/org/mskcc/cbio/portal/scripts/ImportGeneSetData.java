@@ -43,7 +43,8 @@ import org.mskcc.cbio.portal.util.ProgressMonitor;
  *
  * @author ochoaa
  */
-public class ImportGeneSetData extends ConsoleRunnable {    
+public class ImportGeneSetData extends ConsoleRunnable {
+	public static int skippedGenes;
     
     @Override
     public void run() {
@@ -77,10 +78,12 @@ public class ImportGeneSetData extends ConsoleRunnable {
             }
             
             // import geneset data file and/or supplemental geneset data file
-            boolean allowUpdates = options.hasArgument("update");            
+            boolean allowUpdates = options.hasArgument("update");
+            //TODO parse version from command line args
+            String version = "1";
             if (options.hasArgument(data)) {
                 File genesetFile = new File(options.valueOf(data));
-                importData(genesetFile, allowUpdates);
+                importData(genesetFile, allowUpdates, version);
             }            
             if (options.hasArgument(supp)) {
                 File genesetSuppFile = new File(options.valueOf(supp));
@@ -88,7 +91,7 @@ public class ImportGeneSetData extends ConsoleRunnable {
             }
         }
         catch (Exception ex) {
-            
+            ex.printStackTrace();
         }
         
 
@@ -98,9 +101,10 @@ public class ImportGeneSetData extends ConsoleRunnable {
      * Imports data from geneset file.
      * @param genesetFile
      * @param allowUpdates
+     * @param version 
      * @throws Exception 
      */
-    private static void importData(File genesetFile, boolean allowUpdates) throws Exception {
+    private static void importData(File genesetFile, boolean allowUpdates, String version) throws Exception {
         ProgressMonitor.setCurrentMessage("Reading data from: " + genesetFile.getCanonicalPath());
         DaoGeneSet daoGeneSet = DaoGeneSet.getInstance();
         DaoGeneOptimized daoGene = DaoGeneOptimized.getInstance();
@@ -117,6 +121,10 @@ public class ImportGeneSetData extends ConsoleRunnable {
             GeneSet geneSet = new GeneSet();
             geneSet.setExternalId(parts[0]);
             geneSet.setRefLink(parts[1]);
+            //by default name and nameshort are the same as external id, and can be overriden in importSuppGeneSetData:
+            geneSet.setName(geneSet.getExternalId());
+            geneSet.setNameShort(geneSet.getExternalId());
+            geneSet.setVersion(version);
             
             // parse entrez ids for geneset
             List<Integer> genesetGenes = new ArrayList();
@@ -138,18 +146,28 @@ public class ImportGeneSetData extends ConsoleRunnable {
                 // assumed that ref link and geneset genes are updated
                 existingGeneSet.setRefLink(geneSet.getRefLink());
                 existingGeneSet.setGenesetGenes(geneSet.getGenesetGenes());
+                existingGeneSet.setVersion(version);
                 
                 // update geneset record and geneset genes in db
-                daoGeneSet.updateGeneSet(geneSet, true);                
+                daoGeneSet.updateGeneSet(existingGeneSet, true);                
             }
             else {
                 // import new geneset record
                 daoGeneSet.addGeneSet(geneSet);
+                
             }
             line = buf.readLine();
         }
         // close file
         reader.close();
+        
+        // print warnings message with skipped genes
+        if (skippedGenes > 0) {
+        System.err.println("\n" + skippedGenes + " times a gene was not found in local gene table. Possible reasons:\n"
+        		+ "1. The Entrez gene IDs are relatively new. Consider adding them to database.\n"
+        		+ "2. The Entrez gene IDs are depricated. Consider updating gene sets and recalculating GSVA scores.\n"
+        		+ "3. Invalid Entrez gene IDs. Please check .gmt file to verify genes are in Entrez gene ID format.\n\n");
+        }
     }
     
     /**

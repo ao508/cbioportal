@@ -34,6 +34,8 @@ package org.mskcc.cbio.portal.dao;
 
 import org.cbioportal.model.GeneSet;
 import org.mskcc.cbio.portal.model.CanonicalGene;
+import org.mskcc.cbio.portal.scripts.ImportGeneSetData;
+import org.mskcc.cbio.portal.util.ProgressMonitor;
 
 import java.sql.*;
 import java.util.*;
@@ -78,16 +80,20 @@ public class DaoGeneSet {
             
             con = JdbcUtil.getDbConnection(DaoGeneSet.class);
             pstmt = con.prepareStatement("INSERT INTO geneset " 
-                    + "(`ID`, `GENETIC_ENTITY_ID`, `EXTERNAL_ID`, `NAME_SHORT`, `NAME`, `REF_LINK`, `VERSION`) "
-                    + "VALUES(?,?,?,?,?,?,?)");
-            pstmt.setInt(1, geneSet.getId());
-            pstmt.setInt(2, geneSet.getGeneticEntityId());
-            pstmt.setString(3, geneSet.getExternalId());
-            pstmt.setString(4,geneSet.getNameShort());
-            pstmt.setString(5,geneSet.getName());
-            pstmt.setString(6, geneSet.getRefLink());
-            pstmt.setString(7, geneSet.getVersion());
+                    + "(`GENETIC_ENTITY_ID`, `EXTERNAL_ID`, `NAME_SHORT`, `NAME`, `REF_LINK`, `VERSION`) "
+                    + "VALUES(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, geneSet.getGeneticEntityId());
+            pstmt.setString(2, geneSet.getExternalId());
+            pstmt.setString(3,geneSet.getNameShort());
+            pstmt.setString(4,geneSet.getName());
+            pstmt.setString(5, geneSet.getRefLink());
+            pstmt.setString(6, geneSet.getVersion());
             rows += pstmt.executeUpdate();
+            //get the auto generated key:
+            rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int newId = rs.getInt(1);
+            geneSet.setId(newId);
             
             // add geneset genes
             rows += addGeneSetGenes(geneSet);
@@ -98,7 +104,7 @@ public class DaoGeneSet {
             throw new DaoException(e);
         } 
         finally {
-            JdbcUtil.closeAll(DaoGene.class, con, pstmt, rs);
+            JdbcUtil.closeAll(DaoGeneSet.class, con, pstmt, rs);
         }        
     }
     
@@ -109,15 +115,25 @@ public class DaoGeneSet {
      * @throws DaoException 
      */
     public int addGeneSetGenes(GeneSet geneSet) throws DaoException {
+    	DaoGeneOptimized daoGeneOptimized = DaoGeneOptimized.getInstance();
+
         if (MySQLbulkLoader.isBulkLoad()) {
             // write to temp file maintained by the MySQLbulkLoader
             List<Integer> entrezGeneIds = geneSet.getGenesetGenes();
             for (Integer entrezGeneId : entrezGeneIds) {
+            	//validate:
+            	if (daoGeneOptimized.getGene(entrezGeneId.intValue()) == null) {
+            		//throw error with clear message:
+            		ProgressMonitor.logWarning(geneSet.getExternalId() + " contains Entrez gene ID not found in local gene table: " + entrezGeneId);
+            		ImportGeneSetData.skippedGenes++;
+            		continue;
+            	}
                 MySQLbulkLoader.getMySQLbulkLoader("geneset_gene").insertRecord(
                         Integer.toString(geneSet.getId()),
                         Integer.toString(entrezGeneId)
                 );
             }
+            
             // return 1 because normal insert will return 1 if no error occurs
             return 1;            
         }
@@ -130,6 +146,13 @@ public class DaoGeneSet {
             List<Integer> entrezGeneIds = geneSet.getGenesetGenes();
             int rows = 0;
             for (Integer entrezGeneId : entrezGeneIds) {
+            	//validate:
+            	if (daoGeneOptimized.getGene(entrezGeneId.intValue()) == null) {
+            		//throw error with clear message:
+            		ProgressMonitor.logWarning(geneSet.getExternalId() + " contains Entrez gene ID not found in local gene table: " + entrezGeneId);
+            		ImportGeneSetData.skippedGenes++;
+            		continue;
+            	}
                 pstmt = con.prepareStatement("INSERT INTO geneset_gene "
                         + "(`GENESET_ID`, `ENTREZ_GENE_ID`)"
                         + "VALUES(?,?)");
@@ -146,6 +169,7 @@ public class DaoGeneSet {
         finally {
             JdbcUtil.closeAll(DaoGene.class, con, pstmt, rs);
         }
+        
     }
     
     /**
@@ -263,6 +287,7 @@ public class DaoGeneSet {
         try {
             con = JdbcUtil.getDbConnection(DaoGene.class);
             pstmt = con.prepareStatement(SQL);
+            pstmt.setInt(1, geneticEntityId);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1)>0;
