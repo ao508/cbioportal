@@ -41,6 +41,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.MediaType.*;
 import org.json.JSONObject;
+import com.fasterxml.jackson.databind.node.TextNode;
+
 
 @PublicApi
 @Api(tags = "Test")
@@ -49,7 +51,35 @@ public class GraphQLController {
 
     @RequestMapping(value = "/graphql", method = RequestMethod.POST)
     @ApiOperation("Please work")
-    public Map<String, Object> myGraphql(@RequestBody String request) throws Exception {
+    public Map<String, Object> myGraphql(@RequestBody Map<String, Object> request) throws Exception {
+        System.out.println("STARTING");
+        System.out.println(request);
+        
+        String schema = "type Query{MagicSchool: String}";
+        JSONObject jsonRequest = new JSONObject(request);
+        
+        System.out.println(jsonRequest);
+        System.out.println(jsonRequest.getString("query"));
+
+        SchemaParser schemaParser = new SchemaParser();
+        TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
+
+        RuntimeWiring runtimeWiring = newRuntimeWiring()
+            .type("Query", builder -> builder.dataFetcher("MagicSchool", new StaticDataFetcher("Hogwards")))
+            .build();
+
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
+        GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
+
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(jsonRequest.getString("query")).build();
+        System.out.println(executionInput);
+        ExecutionResult executionResult = build.execute(executionInput);
+
+        System.out.println(executionResult.toSpecification());
+        return executionResult.toSpecification();
+    }
+/*
          String schema = "type Query{hello: String}";
 
         SchemaParser schemaParser = new SchemaParser();
@@ -57,46 +87,24 @@ public class GraphQLController {
        
         System.out.println("HERE I AM");
         System.out.println(jsonRequest);
+        System.out.println(jsonRequest.getString("query"));
  
         TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
 
         RuntimeWiring runtimeWiring = newRuntimeWiring()
                 .type("Query", builder -> builder.dataFetcher("hello", new StaticDataFetcher("world")))
-                .type("Query", builder -> builder.dataFetcher("foo", new StaticDataFetcher("bar")))
                 .build();
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
 
-        //GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
         GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
-        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(jsonRequest.getString("query")).build();
-        ExecutionResult executionResult = build.execute(executionInput);
-        //ExecutionResult executionResult = build.execute("{hello}");
+        //ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(jsonRequest.getString("query")).build();
+        ExecutionResult executionResult = build.execute("{" + jsonRequest.getString("query") + "}");
+        //ExecutionResult executionResult = build.execute(executionInput);
+        //ExecutionResult executionResult = build.execute("{hello});
         
         System.out.println(executionResult.toSpecification());
-        return executionResult.toSpecification();
-    }
-    /*
-        // Prints: {hello=world}
-        //     }
-        String schema = "type Query{hello: Object}";
-        JSONObject jsonRequest = new JSONObject(request);
-        
-        SchemaParser schemaParser = new SchemaParser();
-        TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
-
-        RuntimeWiring runtimeWiring = newRuntimeWiring()
-                .type("Query", builder -> builder.dataFetcher("hello", new StaticDataFetcher("world")))
-                .build();
-
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
-        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
-        GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
-
-        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(jsonRequest.getString("query")).build();
-        ExecutionResult executionResult = build.execute(executionInput);
-        // ExecutionResult executionResult = build.execute("{hello}");
         return executionResult.toSpecification();
     }
     */
