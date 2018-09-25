@@ -15,6 +15,16 @@
 
   <dependencies>
     <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>9.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20170516</version>
+    </dependency>
+    <dependency>
       <groupId>org.mskcc.cbio</groupId>
       <artifactId>business</artifactId>
       <version>${project.version}</version>
