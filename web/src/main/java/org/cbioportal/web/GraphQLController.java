@@ -43,6 +43,7 @@ import org.springframework.http.MediaType.*;
 import org.json.JSONObject;
 import com.fasterxml.jackson.databind.node.TextNode;
 
+import org.cbioportal.service.graphql.CancerStudyFetcher;
 
 @PublicApi
 @Api(tags = "Test")
@@ -54,18 +55,19 @@ public class GraphQLController {
     public Map<String, Object> myGraphql(@RequestBody Map<String, Object> request) throws Exception {
         System.out.println("STARTING");
         System.out.println(request);
-        
-        String schema = "type Query{MagicSchool: String}";
+
+        String schema = "type Query {CancerStudy cancerStudies: [CancerStudy]} type CancerStudy {name: String! shortName: String!}";
         JSONObject jsonRequest = new JSONObject(request);
         
         System.out.println(jsonRequest);
         System.out.println(jsonRequest.getString("query"));
 
+        //File schemaFile = loadSchema("graphql/cancerStudy.graphql"); 
         SchemaParser schemaParser = new SchemaParser();
         TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
 
         RuntimeWiring runtimeWiring = newRuntimeWiring()
-            .type("Query", builder -> builder.dataFetcher("MagicSchool", new StaticDataFetcher("Hogwards")))
+            .type("Query", builder -> builder.dataFetcher("cancerStudy", new CancerStudyFetcher().getData()))
             .build();
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();

@@ -392,6 +392,17 @@
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
+    <!-- graphQL -->
+    <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>8.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20170516</version>
+    </dependency>
     <!-- spring -->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -1,0 +1,6 @@
+type Query{
+    cancerStudy:CancerStudy
+}
+type CancerStudy{
+    name: String
+}
