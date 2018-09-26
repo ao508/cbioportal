@@ -11,7 +11,6 @@ import org.cbioportal.persistence.GraphQLSchemaRepository;
 import org.cbioportal.service.graphql.GraphQLWiring;
 import org.cbioportal.service.GraphQLService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -12,8 +12,8 @@ public class GraphQLWiring {
     public RuntimeWiring buildRuntimeWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type("Query",typeWiring -> typeWiring
-                       .dataFetcher("cancerStudies", cancerStudyFetcher.getData())
-                )
+                    .dataFetcher("cancerStudies", cancerStudyFetcher.allStudiesDataFetcher())
+                    .dataFetcher("cancerStudy", cancerStudyFetcher.studyDataFetcher()))
                 .build();
     }
 }

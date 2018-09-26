@@ -1,12 +1,10 @@
 package org.cbioportal.persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import java.io.*;
-import java.util.*;
 
 @Repository
 public class GraphQLSchemaRepository {
