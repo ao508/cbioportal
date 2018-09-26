@@ -21,9 +21,9 @@ public class CancerStudyFetcher {
             @Override
             public Object get(DataFetchingEnvironment dfe) {
                 List<Map<String, Object>> allCancerStudies = new ArrayList<>();
-                if (dfe.containsArgument("stableId")) {
-                    String stableId = dfe.getArgument("stableId");
-                    CancerStudy study = studyRepository.getStudy(stableId, "SUMMARY");
+                if (dfe.containsArgument("cancerStudyIdentifier")) {
+                    String cancerStudyIdentifier = dfe.getArgument("cancerStudyIdentifier");
+                    CancerStudy study = studyRepository.getStudy(cancerStudyIdentifier, "SUMMARY");
                     allCancerStudies.add(getCancerStudyMapObject(study));
                 }
                 else {
@@ -43,7 +43,7 @@ public class CancerStudyFetcher {
         cancerStudy.put("name", study.getName());
         cancerStudy.put("shortName", study.getShortName());
         cancerStudy.put("description", study.getDescription());
-        cancerStudy.put("stableId", study.getCancerStudyIdentifier());
+        cancerStudy.put("cancerStudyIdentifier", study.getCancerStudyIdentifier());
         return cancerStudy;
     }
 }

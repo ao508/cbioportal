@@ -1,24 +1,24 @@
 type Query {
-  cancerStudies(stableId: String): [CancerStudy]
+  cancerStudies(cancerStudyIdentifier: String): [CancerStudy]
 }
 
 type CancerStudy {
   name: String!
   shortName: String!
-  stableId: String!
+  cancerStudyIdentifier: String!
   description: String
 #  typeOfCancer: TypeOfCancer!
-#  patients: [Patient]!
+  patients: [Patient]!
 #  profiles: [GeneticProfile]!
 #  clinicalAttributeMeta: [ClinicalAttributeMeta]!
 }
 
-#type Patient {
-#  stableId: String!
+type Patient {
+  patientStableId: String!
 #  samples: [Sample]!
 #  clinicalData: [ClinicalData]
-#}
-#
+}
+
 #type Sample {
 #  stableId: String!
 #  typeOfCancer: TypeOfCancer!

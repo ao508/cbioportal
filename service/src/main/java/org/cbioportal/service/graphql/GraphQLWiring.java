@@ -7,12 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class GraphQLWiring {
     @Autowired
-    CancerStudyFetcher cancerStudyFetcher;
+    private CancerStudyFetcher cancerStudyFetcher;
+
+    @Autowired
+    private PatientDataFetcher patientDataFetcher;
 
     public RuntimeWiring buildRuntimeWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type("Query",typeWiring -> typeWiring
                     .dataFetcher("cancerStudies", cancerStudyFetcher.getData()))
+                .type("CancerStudy", typeWiring -> typeWiring
+                    .dataFetcher("patients", patientDataFetcher.getData()))
                 .build();
     }
 }
