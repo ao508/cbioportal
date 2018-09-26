@@ -27,6 +27,7 @@ public class CancerStudyFetcher {
                 Map<String, Object> cancerStudy = new HashMap<>();
                 cancerStudy.put("name", study.getName());
                 cancerStudy.put("shortName", study.getShortName());
+                cancerStudy.put("description", study.getDescription());
                 allCancerStudies.add(cancerStudy);
             }
             return allCancerStudies;

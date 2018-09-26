@@ -44,42 +44,30 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.node.TextNode;
 
 import org.cbioportal.service.graphql.CancerStudyFetcher;
+import org.cbioportal.service.GraphQLService;
 
 @PublicApi
 @Api(tags = "Test")
 @RestController
 public class GraphQLController {
 
+    @Autowired
+    private GraphQLService graphQLService; 
+    
     @RequestMapping(value = "/graphql", method = RequestMethod.POST)
     @ApiOperation("Please work")
     public Map<String, Object> myGraphql(@RequestBody Map<String, Object> request) throws Exception {
         System.out.println("STARTING");
         System.out.println(request);
 
-        String schema = "type Query {CancerStudy cancerStudies: [CancerStudy]} type CancerStudy {name: String! shortName: String!}";
         JSONObject jsonRequest = new JSONObject(request);
         
         System.out.println(jsonRequest);
         System.out.println(jsonRequest.getString("query"));
 
         //File schemaFile = loadSchema("graphql/cancerStudy.graphql"); 
-        SchemaParser schemaParser = new SchemaParser();
-        TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
 
-        RuntimeWiring runtimeWiring = newRuntimeWiring()
-            .type("Query", builder -> builder.dataFetcher("cancerStudy", new CancerStudyFetcher().getData()))
-            .build();
-
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
-        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
-        GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
-
-        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(jsonRequest.getString("query")).build();
-        System.out.println(executionInput);
-        ExecutionResult executionResult = build.execute(executionInput);
-
-        System.out.println(executionResult.toSpecification());
-        return executionResult.toSpecification();
+        return graphQLService.executeQuery(jsonRequest.getString("query"));
     }
 /*
          String schema = "type Query{hello: String}";
