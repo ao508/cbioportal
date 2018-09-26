@@ -1,0 +1,60 @@
+type Query {
+  cancerStudy(stableId: String): CancerStudy
+  cancerStudies: [CancerStudy]
+}
+
+type CancerStudy {
+  name: String!
+  shortName: String!
+  stableId: String!
+  description: String
+#  typeOfCancer: TypeOfCancer!
+#  patients: [Patient]!
+#  profiles: [GeneticProfile]!
+#  clinicalAttributeMeta: [ClinicalAttributeMeta]!
+}
+
+#type Patient {
+#  stableId: String!
+#  samples: [Sample]!
+#  clinicalData: [ClinicalData]
+#}
+#
+#type Sample {
+#  stableId: String!
+#  typeOfCancer: TypeOfCancer!
+#  sampleType: String #maybe this could be an enum
+#  clinicalData: [ClinicalData]!
+#}
+#
+#type ClinicalAttributeMeta {
+#  attrId: String!
+#  displayName: String!
+#  description: String!
+#  datatype: String! #Number or String
+#  priority: String!
+#  patientAttribute: Boolean!
+#}
+#
+#type ClinicalData {
+#    attrId: String!
+#    attrValue: String!
+#}
+#
+#type TypeOfCancer {
+#  name: String!
+#  dedicatedColor: String!
+#  shortName: String
+#  parent: TypeOfCancer!
+#}
+#
+#type GeneticProfile {
+#  stableId: String!
+#  geneticAlterationType: String! #Maybe this could be an enum
+#  dataType: String! #Maybe this should be an enum
+#  name: String!
+#  description: String!
+#  showProfileInAnalysisTab: Boolean!
+#  samples: [Sample]!
+#}
+#
