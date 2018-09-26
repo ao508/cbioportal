@@ -1,6 +1,5 @@
 type Query {
-  cancerStudy(stableId: String): CancerStudy
-  cancerStudies: [CancerStudy]
+  cancerStudies(stableId: String): [CancerStudy]
 }
 
 type CancerStudy {

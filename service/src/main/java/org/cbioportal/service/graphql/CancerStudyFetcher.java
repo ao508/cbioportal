@@ -16,29 +16,24 @@ public class CancerStudyFetcher {
     @Autowired
     private StudyRepository studyRepository;
 
-    public DataFetcher allStudiesDataFetcher() {
+    public DataFetcher getData() {
         return new DataFetcher() {
             @Override
             public Object get(DataFetchingEnvironment dfe) {
-                // List<CancerStudy> allStudies = studyRepository.getAllStudies(Projection.SUMMARY, PagingConstants.MAX_PAGE_SIZE, PagingConstants.DEFAULT_PAGE_NUMBER, null, Direction.ASC);
-                List<CancerStudy> allStudies = studyRepository.getAllStudies("SUMMARY", 1000000, 0, null, "ASC");
-
                 List<Map<String, Object>> allCancerStudies = new ArrayList<>();
-                for (CancerStudy study : allStudies) {
+                if (dfe.containsArgument("stableId")) {
+                    String stableId = dfe.getArgument("stableId");
+                    CancerStudy study = studyRepository.getStudy(stableId, "SUMMARY");
                     allCancerStudies.add(getCancerStudyMapObject(study));
                 }
+                else {
+                    // List<CancerStudy> allStudies = studyRepository.getAllStudies(Projection.SUMMARY, PagingConstants.MAX_PAGE_SIZE, PagingConstants.DEFAULT_PAGE_NUMBER, null, Direction.ASC);
+                    List<CancerStudy> allStudies = studyRepository.getAllStudies("SUMMARY", 1000000, 0, null, "ASC");
+                    for (CancerStudy study : allStudies) {
+                        allCancerStudies.add(getCancerStudyMapObject(study));
+                    }
+                }
                 return allCancerStudies;
-            }
-        };
-    }
-
-    public DataFetcher studyDataFetcher() {
-        return new DataFetcher() {
-            @Override
-            public Object get(DataFetchingEnvironment dfe) {
-                String stableId = dfe.getArgument("stableId");
-                CancerStudy study = studyRepository.getStudy(stableId, "SUMMARY");
-                return getCancerStudyMapObject(study);
             }
         };
     }
