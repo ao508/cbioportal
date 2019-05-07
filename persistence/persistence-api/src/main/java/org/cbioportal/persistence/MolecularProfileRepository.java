@@ -3,6 +3,8 @@ package org.cbioportal.persistence;
 import org.cbioportal.model.MolecularProfile;
 import org.cbioportal.model.meta.BaseMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface MolecularProfileRepository {
@@ -23,11 +25,12 @@ public interface MolecularProfileRepository {
 
     BaseMeta getMetaMolecularProfilesInStudy(String studyId);
 
+    @Cacheable("MolecularProfileDataRepositoryCache")
     List<MolecularProfile> getMolecularProfilesInStudies(List<String> studyIds, String projection);
-    
+
     BaseMeta getMetaMolecularProfilesInStudies(List<String> studyIds);
 
-	List<MolecularProfile> getMolecularProfilesReferredBy(String referringMolecularProfileId);
+    List<MolecularProfile> getMolecularProfilesReferredBy(String referringMolecularProfileId);
 
-	List<MolecularProfile> getMolecularProfilesReferringTo(String referredMolecularProfileId);
+    List<MolecularProfile> getMolecularProfilesReferringTo(String referredMolecularProfileId);
 }

@@ -3,6 +3,8 @@ package org.cbioportal.persistence;
 import org.cbioportal.model.Patient;
 import org.cbioportal.model.meta.BaseMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface PatientRepository {
@@ -23,5 +25,6 @@ public interface PatientRepository {
 
     BaseMeta fetchMetaPatients(List<String> studyIds, List<String> patientIds);
 
+    @Cacheable("PatientDataRepositoryCache")
     List<Patient> getPatientsOfSamples(List<String> studyIds, List<String> sampleIds);
 }

@@ -5,6 +5,8 @@ import org.cbioportal.model.MutationCountByPosition;
 import org.cbioportal.model.MutationCountByGene;
 import org.cbioportal.model.meta.MutationMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface MutationRepository {
@@ -18,6 +20,7 @@ public interface MutationRepository {
     MutationMeta getMetaMutationsInMolecularProfileBySampleListId(String molecularProfileId, String sampleListId,
                                                                   List<Integer> entrezGeneIds);
 
+    @Cacheable("MutationDataRepositoryCache")
     List<Mutation> getMutationsInMultipleMolecularProfiles(List<String> molecularProfileIds, List<String> sampleIds,
                                                            List<Integer> entrezGeneIds, String projection,
                                                            Integer pageSize, Integer pageNumber,
@@ -33,11 +36,12 @@ public interface MutationRepository {
 
     MutationMeta fetchMetaMutationsInMolecularProfile(String molecularProfileId, List<String> sampleIds,
                                                       List<Integer> entrezGeneIds);
-    
+
     List<MutationCountByGene> getSampleCountByEntrezGeneIdsAndSampleIds(String molecularProfileId,
                                                                         List<String> sampleIds,
                                                                         List<Integer> entrezGeneIds);
 
+    @Cacheable("MutationDataRepositoryCache")
     List<MutationCountByGene> getSampleCountInMultipleMolecularProfiles(List<String> molecularProfileIds,
                                                                         List<String> sampleIds,
                                                                         List<Integer> entrezGeneIds);

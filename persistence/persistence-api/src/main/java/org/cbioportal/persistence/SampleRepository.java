@@ -3,6 +3,8 @@ package org.cbioportal.persistence;
 import org.cbioportal.model.Sample;
 import org.cbioportal.model.meta.BaseMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface SampleRepository {
@@ -12,6 +14,7 @@ public interface SampleRepository {
 
     BaseMeta getMetaSamplesInStudy(String studyId);
 
+    @Cacheable("SampleDataRepositoryCache")
     List<Sample> getAllSamplesInStudies(List<String> studyIds, String projection, Integer pageSize, Integer pageNumber,
                                       String sortBy, String direction);
 
@@ -24,8 +27,10 @@ public interface SampleRepository {
 
     List<Sample> getAllSamplesOfPatientsInStudy(String studyId, List<String> patientIds, String projection);
 
+    @Cacheable("SampleDataRepositoryCache")
     List<Sample> getSamplesOfPatientsInMultipleStudies(List<String> studyIds, List<String> patientIds, String projection);
-    
+
+    @Cacheable("SampleDataRepositoryCache")
     List<Sample> fetchSamples(List<String> studyIds, List<String> sampleIds, String projection);
 
     List<Sample> fetchSamples(List<String> sampleListIds, String projection);

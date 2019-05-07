@@ -5,6 +5,8 @@ import org.cbioportal.model.GenePanelData;
 import org.cbioportal.model.GenePanelToGene;
 import org.cbioportal.model.meta.BaseMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface GenePanelRepository {
@@ -22,8 +24,9 @@ public interface GenePanelRepository {
 
     List<GenePanelData> fetchGenePanelData(String molecularProfileId, List<String> sampleIds);
 
+    @Cacheable("GenePanelDataRepositoryCache")
     List<GenePanelData> fetchGenePanelDataInMultipleMolecularProfiles(List<String> molecularProfileIds, 
         List<String> sampleIds);
-    
+
     List<GenePanelToGene> getGenesOfPanels(List<String> genePanelIds);
 }

@@ -4,6 +4,8 @@ import org.cbioportal.model.CopyNumberCountByGene;
 import org.cbioportal.model.DiscreteCopyNumberData;
 import org.cbioportal.model.meta.BaseMeta;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import java.util.List;
 
 public interface DiscreteCopyNumberRepository {
@@ -25,6 +27,7 @@ public interface DiscreteCopyNumberRepository {
                                                                             List<Integer> alterationTypes,
                                                                             String projection);
 
+    @Cacheable("DiscreteCopyNumberDataRepositoryCache")
     List<DiscreteCopyNumberData> getDiscreteCopyNumbersInMultipleMolecularProfiles(List<String> molecularProfileIds, 
                                                                                    List<String> sampleIds,
                                                                                    List<Integer> entrezGeneIds,
@@ -39,6 +42,7 @@ public interface DiscreteCopyNumberRepository {
                                                                               List<Integer> entrezGeneIds,
                                                                               List<Integer> alterations);
 
+    @Cacheable("DiscreteCopyNumberDataRepositoryCache")
     List<CopyNumberCountByGene> getSampleCountInMultipleMolecularProfiles(List<String> molecularProfileIds,
                                                                           List<String> sampleIds, 
                                                                           List<Integer> entrezGeneIds, 

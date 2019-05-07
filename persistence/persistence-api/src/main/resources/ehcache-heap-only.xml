@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache:config
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ehcache="http://www.ehcache.org/v3"
+    xmlns:jcache="http://www.ehcache.org/v3/jsr107"
+    xsi:schemaLocation="
+    http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+    http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+    <ehcache:service>
+      <jcache:defaults enable-management="true" enable-statistics="${ehcache.enable.statistics}"/>
+    </ehcache:service>
+
+    <ehcache:heap-store>
+      <ehcache:max-object-graph-size>10000000</ehcache:max-object-graph-size>
+    </ehcache:heap-store>
+
+    <ehcache:cache alias="ClinicalDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.ClinicalDataRepositoryCache.maxBytesHeapUnits}">${ehcache.ClinicalDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="SampleDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.SampleDataRepositoryCache.maxBytesHeapUnits}">${ehcache.SampleDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="MutationDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.MutationDataRepositoryCache.maxBytesHeapUnits}">${ehcache.MutationDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="DiscreteCopyNumberDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesHeapUnits}">${ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="MolecularProfileDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.MolecularProfileDataRepositoryCache.maxBytesHeapUnits}">${ehcache.MolecularProfileDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="GenePanelDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.GenePanelDataRepositoryCache.maxBytesHeapUnits}">${ehcache.GenePanelDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="PatientDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.PatientDataRepositoryCache.maxBytesHeapUnits}">${ehcache.PatientDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="SignificantlyMutatedGeneDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesHeapUnits}">${ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+    <ehcache:cache alias="SignificantCopyNumberRegionDataRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesHeapUnits}">${ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesHeap}</ehcache:heap>
+      </ehcache:resources>
+    </ehcache:cache>
+
+</ehcache:config>

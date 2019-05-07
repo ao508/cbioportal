@@ -234,6 +234,54 @@ oncoprint.defaultview=patient
 # Disable cache (for non authorized portals this can sometimes avoid running
 # out of memory with relatively little performance loss)
 # mybatis.cache.enabled=false
+ehcache.xml.configuration=/ehcache-mixed.xml
+ehcache.enable.statistics=true
+ehcache.persistence.path=
+
+ehcache.ClinicalDataRepositoryCache.maxBytesHeap=100
+ehcache.ClinicalDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.ClinicalDataRepositoryCache.maxBytesLocalDisk=250
+ehcache.ClinicalDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.SampleDataRepositoryCache.maxBytesHeap=100
+ehcache.SampleDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.SampleDataRepositoryCache.maxBytesLocalDisk=250
+ehcache.SampleDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.MutationDataRepositoryCache.maxBytesHeap=50
+ehcache.MutationDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.MutationDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.MutationDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesHeap=50
+ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.MolecularProfileDataRepositoryCache.maxBytesHeap=50
+ehcache.MolecularProfileDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.MolecularProfileDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.MolecularProfileDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.GenePanelDataRepositoryCache.maxBytesHeap=50
+ehcache.GenePanelDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.GenePanelDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.GenePanelDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.PatientDataRepositoryCache.maxBytesHeap=50
+ehcache.PatientDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.PatientDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.PatientDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesHeap=50
+ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesLocalDiskUnits=MB
+
+ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesHeap=50
+ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesHeapUnits=MB
+ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDisk=100
+ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDiskUnits=MB
 
 # Default cross cancer study query
 # query this session id when not specifying a study for
