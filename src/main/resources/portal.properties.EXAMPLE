@@ -283,6 +283,11 @@ ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesHeapUnits=MB
 ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDisk=100
 ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDiskUnits=MB
 
+ehcache.StudyRepositoryCache.maxBytesHeap=50
+ehcache.StudyRepositoryCache.maxBytesHeapUnits=MB
+ehcache.StudyRepositoryCache.maxBytesLocalDisk=100
+ehcache.StudyRepositoryCache.maxBytesLocalDiskUnits=MB
+
 # Default cross cancer study query
 # query this session id when not specifying a study for
 # linkout links e.g. /ln?q=TP53:MUT or when querying a single gene in quick

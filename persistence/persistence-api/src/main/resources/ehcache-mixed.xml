@@ -162,4 +162,20 @@
       </ehcache:resources>
     </ehcache:cache>
 
+    <ehcache:cache alias="StudyRepositoryCache">
+      <ehcache:listeners>
+        <ehcache:listener>
+          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
+          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
+          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
+          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
+          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
+        </ehcache:listener>
+      </ehcache:listeners>
+      <ehcache:resources>
+        <ehcache:heap unit="${ehcache.StudyRepositoryCache.maxBytesHeapUnits}">${ehcache.StudyRepositoryCache.maxBytesHeap}</ehcache:heap>
+        <ehcache:disk unit="${ehcache.StudyRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.StudyRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
+      </ehcache:resources>
+    </ehcache:cache>
+
 </ehcache:config>
