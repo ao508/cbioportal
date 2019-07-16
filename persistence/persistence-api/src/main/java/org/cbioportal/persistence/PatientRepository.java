@@ -25,6 +25,6 @@ public interface PatientRepository {
 
     BaseMeta fetchMetaPatients(List<String> studyIds, List<String> patientIds);
 
-    @Cacheable("PatientDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Patient> getPatientsOfSamples(List<String> studyIds, List<String> sampleIds);
 }

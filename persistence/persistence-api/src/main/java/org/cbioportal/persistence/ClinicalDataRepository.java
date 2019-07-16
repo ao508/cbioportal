@@ -35,14 +35,14 @@ public interface ClinicalDataRepository {
     BaseMeta fetchMetaClinicalDataInStudy(String studyId, List<String> ids, List<String> attributeIds, 
                                           String clinicalDataType);
 
-    @Cacheable("ClinicalDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<ClinicalData> fetchClinicalData(List<String> studyIds, List<String> ids, List<String> attributeIds,
                                          String clinicalDataType, String projection);
 
     BaseMeta fetchMetaClinicalData(List<String> studyIds, List<String> ids, List<String> attributeIds,
                                    String clinicalDataType);
 
-    @Cacheable("ClinicalDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<ClinicalDataCount> fetchClinicalDataCounts(List<String> studyIds, List<String> sampleIds, List<String> attributeIds, 
         String clinicalDataType);
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface StudyRepository {
 
-    @Cacheable("StudyRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<CancerStudy> getAllStudies(String keyword, String projection, Integer pageSize, Integer pageNumber,
                                     String sortBy, String direction);
 

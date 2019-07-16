@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface SignificantCopyNumberRegionRepository {
     
-    @Cacheable("SignificantCopyNumberRegionDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Gistic> getSignificantCopyNumberRegions(String studyId, String projection, Integer pageSize, 
                                                  Integer pageNumber, String sortBy, String direction);
 
     BaseMeta getMetaSignificantCopyNumberRegions(String studyId);
 
-    @Cacheable("SignificantCopyNumberRegionDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<GisticToGene> getGenesOfRegions(List<Long> gisticRoiIds);
 }

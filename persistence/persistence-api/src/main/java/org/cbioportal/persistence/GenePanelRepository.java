@@ -24,7 +24,7 @@ public interface GenePanelRepository {
 
     List<GenePanelData> fetchGenePanelData(String molecularProfileId, List<String> sampleIds);
 
-    @Cacheable("GenePanelDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<GenePanelData> fetchGenePanelDataInMultipleMolecularProfiles(List<String> molecularProfileIds, 
         List<String> sampleIds);
 

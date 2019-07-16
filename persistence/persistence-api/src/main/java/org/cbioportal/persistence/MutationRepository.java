@@ -20,7 +20,7 @@ public interface MutationRepository {
     MutationMeta getMetaMutationsInMolecularProfileBySampleListId(String molecularProfileId, String sampleListId,
                                                                   List<Integer> entrezGeneIds);
 
-    @Cacheable("MutationDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Mutation> getMutationsInMultipleMolecularProfiles(List<String> molecularProfileIds, List<String> sampleIds,
                                                            List<Integer> entrezGeneIds, String projection,
                                                            Integer pageSize, Integer pageNumber,
@@ -41,7 +41,7 @@ public interface MutationRepository {
                                                                         List<String> sampleIds,
                                                                         List<Integer> entrezGeneIds);
 
-    @Cacheable("MutationDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<MutationCountByGene> getSampleCountInMultipleMolecularProfiles(List<String> molecularProfileIds,
                                                                         List<String> sampleIds,
                                                                         List<Integer> entrezGeneIds);

@@ -14,7 +14,7 @@ public interface SampleRepository {
 
     BaseMeta getMetaSamplesInStudy(String studyId);
 
-    @Cacheable("SampleDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Sample> getAllSamplesInStudies(List<String> studyIds, String projection, Integer pageSize, Integer pageNumber,
                                       String sortBy, String direction);
 
@@ -27,10 +27,10 @@ public interface SampleRepository {
 
     List<Sample> getAllSamplesOfPatientsInStudy(String studyId, List<String> patientIds, String projection);
 
-    @Cacheable("SampleDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Sample> getSamplesOfPatientsInMultipleStudies(List<String> studyIds, List<String> patientIds, String projection);
 
-    @Cacheable("SampleDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<Sample> fetchSamples(List<String> studyIds, List<String> sampleIds, String projection);
 
     List<Sample> fetchSamples(List<String> sampleListIds, String projection);

@@ -14,7 +14,7 @@
 
     <ehcache:persistence directory="${ehcache.persistence.path}"/>
 
-    <ehcache:cache alias="ClinicalDataRepositoryCache">
+    <ehcache:cache alias="cBioPortalRepositoryCache">
       <ehcache:listeners>
         <ehcache:listener>
           <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
@@ -25,143 +25,7 @@
         </ehcache:listener>
       </ehcache:listeners>
       <ehcache:resources>
-        <ehcache:disk unit="${ehcache.ClinicalDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.ClinicalDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="SampleDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.SampleDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.SampleDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="MutationDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.MutationDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.MutationDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="DiscreteCopyNumberDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.DiscreteCopyNumberDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="MolecularProfileDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.MolecularProfileDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.MolecularProfileDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="GenePanelDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.GenePanelDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.GenePanelDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="PatientDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.PatientDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.PatientDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="SignificantlyMutatedGeneDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.SignificantlyMutatedGeneDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="SignificantCopyNumberRegionDataRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:disk unit="${ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.SignificantCopyNumberRegionDataRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
-      </ehcache:resources>
-    </ehcache:cache>
-
-    <ehcache:cache alias="StudyRepositoryCache">
-      <ehcache:listeners>
-        <ehcache:listener>
-          <ehcache:class>org.cbioportal.persistence.util.CacheEventLogger</ehcache:class>
-          <ehcache:event-firing-mode>ASYNCHRONOUS</ehcache:event-firing-mode>
-          <ehcache:event-ordering-mode>UNORDERED</ehcache:event-ordering-mode>
-          <ehcache:events-to-fire-on>CREATED</ehcache:events-to-fire-on>
-          <ehcache:events-to-fire-on>UPDATED</ehcache:events-to-fire-on>
-        </ehcache:listener>
-      </ehcache:listeners>
-      <ehcache:resources>
-        <ehcache:heap unit="${ehcache.StudyRepositoryCache.maxBytesHeapUnits}">${ehcache.StudyRepositoryCache.maxBytesHeap}</ehcache:heap>
-        <ehcache:disk unit="${ehcache.StudyRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.StudyRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
+        <ehcache:disk unit="${ehcache.cBioPortalRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.cBioPortalRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
       </ehcache:resources>
     </ehcache:cache>
 

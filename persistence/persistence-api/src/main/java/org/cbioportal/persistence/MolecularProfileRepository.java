@@ -25,7 +25,7 @@ public interface MolecularProfileRepository {
 
     BaseMeta getMetaMolecularProfilesInStudy(String studyId);
 
-    @Cacheable("MolecularProfileDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<MolecularProfile> getMolecularProfilesInStudies(List<String> studyIds, String projection);
 
     BaseMeta getMetaMolecularProfilesInStudies(List<String> studyIds);

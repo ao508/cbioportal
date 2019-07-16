@@ -27,7 +27,7 @@ public interface DiscreteCopyNumberRepository {
                                                                             List<Integer> alterationTypes,
                                                                             String projection);
 
-    @Cacheable("DiscreteCopyNumberDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<DiscreteCopyNumberData> getDiscreteCopyNumbersInMultipleMolecularProfiles(List<String> molecularProfileIds, 
                                                                                    List<String> sampleIds,
                                                                                    List<Integer> entrezGeneIds,
@@ -42,7 +42,7 @@ public interface DiscreteCopyNumberRepository {
                                                                               List<Integer> entrezGeneIds,
                                                                               List<Integer> alterations);
 
-    @Cacheable("DiscreteCopyNumberDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<CopyNumberCountByGene> getSampleCountInMultipleMolecularProfiles(List<String> molecularProfileIds,
                                                                           List<String> sampleIds, 
                                                                           List<Integer> entrezGeneIds, 

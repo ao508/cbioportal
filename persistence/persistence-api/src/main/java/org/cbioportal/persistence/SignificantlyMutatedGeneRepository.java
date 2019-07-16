@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SignificantlyMutatedGeneRepository {
 
-    @Cacheable("SignificantlyMutatedGeneDataRepositoryCache")
+    @Cacheable("cBioPortalRepositoryCache")
     List<MutSig> getSignificantlyMutatedGenes(String studyId, String projection, Integer pageSize, Integer pageNumber,
                                               String sortBy, String direction);
 
