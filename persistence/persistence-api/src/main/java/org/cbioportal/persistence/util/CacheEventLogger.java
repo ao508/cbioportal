@@ -48,13 +48,13 @@ public class CacheEventLogger implements CacheEventListener<Object, Object> {
 
     @Override
     public void onEvent(CacheEvent<? extends Object, ? extends Object> cacheEvent) {
-        if (log.isInfoEnabled()) {
-            log.info("CACHE_EVENT:\n" +
+        if (log.isDebugEnabled()) {
+            log.debug("CACHE_EVENT:\n" +
                      "\tTYPE: " + cacheEvent.getType() + "\n" +
                      "\tKEY: " + cacheEvent.getKey() + "\n" +
                      "\tVALUE: " + cacheEvent.getNewValue() + "\n" +
                      "CACHE_EVENT<>\n");
-            log.info(ehCacheStatistics.getCacheStatistics());
+            log.debug(ehCacheStatistics.getCacheStatistics());
         }
     }
 }

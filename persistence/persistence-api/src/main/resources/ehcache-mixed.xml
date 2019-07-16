@@ -18,7 +18,7 @@
       <ehcache:max-object-graph-size>10000000</ehcache:max-object-graph-size>
     </ehcache:heap-store>
 
-    <ehcache:cache alias="cBioPortalRepositoryCache">
+    <ehcache:cache alias="RepositoryCache">
       <ehcache:expiry>
         <ehcache:tti unit="days">3</ehcache:tti>
       </ehcache:expiry>
@@ -35,8 +35,8 @@
         </ehcache:listener>
       </ehcache:listeners>
       <ehcache:resources>
-        <ehcache:heap unit="${ehcache.cBioPortalRepositoryCache.maxBytesHeapUnits}">${ehcache.cBioPortalRepositoryCache.maxBytesHeap}</ehcache:heap>
-        <ehcache:disk unit="${ehcache.cBioPortalRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.cBioPortalRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
+        <ehcache:heap unit="${ehcache.RepositoryCache.maxBytesHeapUnits}">${ehcache.RepositoryCache.maxBytesHeap}</ehcache:heap>
+        <ehcache:disk unit="${ehcache.RepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.RepositoryCache.maxBytesLocalDisk}</ehcache:disk>
       </ehcache:resources>
     </ehcache:cache>
 

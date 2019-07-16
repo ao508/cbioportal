@@ -14,7 +14,7 @@
 
     <ehcache:persistence directory="${ehcache.persistence.path}"/>
 
-    <ehcache:cache alias="cBioPortalRepositoryCache">
+    <ehcache:cache alias="RepositoryCache">
       <ehcache:expiry>
         <ehcache:tti unit="days">3</ehcache:tti>
       </ehcache:expiry>
@@ -31,7 +31,7 @@
         </ehcache:listener>
       </ehcache:listeners>
       <ehcache:resources>
-        <ehcache:disk unit="${ehcache.cBioPortalRepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.cBioPortalRepositoryCache.maxBytesLocalDisk}</ehcache:disk>
+        <ehcache:disk unit="${ehcache.RepositoryCache.maxBytesLocalDiskUnits}" persistent="true">${ehcache.RepositoryCache.maxBytesLocalDisk}</ehcache:disk>
       </ehcache:resources>
     </ehcache:cache>
 

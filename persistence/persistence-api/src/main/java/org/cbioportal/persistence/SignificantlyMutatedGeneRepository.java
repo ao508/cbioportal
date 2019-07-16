@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface SignificantlyMutatedGeneRepository {
 
-    @Cacheable("cBioPortalRepositoryCache")
+    @Cacheable("RepositoryCache")
     List<MutSig> getSignificantlyMutatedGenes(String studyId, String projection, Integer pageSize, Integer pageNumber,
                                               String sortBy, String direction);
 
+    @Cacheable("RepositoryCache")
     BaseMeta getMetaSignificantlyMutatedGenes(String studyId);
 }
