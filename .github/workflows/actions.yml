@@ -5,11 +5,43 @@ on: [push]
 jobs:
 
   build:
-
+    name: Local cBio Docker Build
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build the local cBioPortal Docker image
       run: 
         docker build --file docker/web-and-data/Dockerfile --tag cbioportal-container:cbio-test-container .
+
+    - uses: actions/checkout@v2
+    - name: Create cBioDB net
+      run: 
+        docker network create cbio-net
+
+    - uses: actions/checkout@v2
+    - name: Create cBioDB net
+      run: 
+        docker network create cbio-net
+
+    - uses: actions/checkout@v2
+    - name: Downloaded seed database
+      run:   
+        wget https://github.com/cBioPortal/datahub/blob/master/seedDB/seed-cbioportal_hg19_v2.7.3.sql.gz 
+
+    - uses: actions/checkout@v2
+    - name: Run cbioDB net
+      run: 
+        mkdir db-files;
+        docker run -d --restart=always \
+          --name=cbioDB \
+          --net=cbio-net \
+          -e MYSQL_ROOT_PASSWORD='P@ssword1' \
+          -e MYSQL_USER=cbio \
+          -e MYSQL_PASSWORD='P@ssword1' \
+          -e MYSQL_DATABASE=cbioportal \
+          -v db-files/:/var/lib/mysql/ \
+          -v db-scripts/src/main/resources/cgds.sql:/docker-entrypoint-initdb.d/cgds.sql:ro \
+          -v seed-cbioportal_hg19_v2.7.3.sql.gz:/docker-entrypoint-initdb.d/seed_part1.sql.gz:ro \
+          mysql:5.7
+
