@@ -32,6 +32,23 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run cbioDB net
       run: 
-        mkdir db-files;
-        docker run -d --restart=always --name=cbiodb --net=cbio-net -e MYSQL_ROOT_PASSWORD='P@ssword1' -e MYSQL_USER=cbio -e MYSQL_PASSWORD='P@ssword1' -e MYSQL_DATABASE=cbioportal -v /cbioportal/db-files/:/var/lib/mysql/ -v /cbioportal/db-scripts/src/main/resources/cgds.sql:/docker-entrypoint-initdb.d/cgds.sql:ro -v /cbioportal/seed-cbioportal_hg19_v2.7.3.sql.gz:/docker-entrypoint-initdb.d/seed_part1.sql.gz:ro mysql:5.7
+        echo $GITHUB_WORKSPACE;
+        mkdir $GITHUB_WORKSPACE/db-files;
+        cp $GITHUB_WORKSPACE/docker/web-and-data/portal.properties.EXAMPLE $GITHUB_WORKSPACE/src/main/resources/portal.properties;
+        docker run -d --restart=always --name=cbioDB --net=cbio-net -e MYSQL_ROOT_PASSWORD='P@ssword1' -e MYSQL_USER=cbio -e MYSQL_PASSWORD='P@ssword1' -e MYSQL_DATABASE=cbioportal -v $GITHUB_WORKSPACE/db-files/:/var/lib/mysql/ -v $GITHUB_WORKSPACE/db-scripts/src/main/resources/cgds.sql:/docker-entrypoint-initdb.d/cgds.sql:ro -v $GITHUB_WORKSPACE/seed-cbioportal_hg19_v2.7.3.sql.gz:/docker-entrypoint-initdb.d/seed_part1.sql.gz:ro mysql:5.7 ;
+        docker run --rm --net cbio-net -v $GITHUB_WORKSPACE/src/main/resources/portal.properties:/cbioportal/portal.properties:ro cbioportal-container:cbio-test-container migrate_db.py -p /cbioportal/portal.properties -s /cbioportal/db-scripts/src/main/resources/migration.sql -y
 
+    - uses: actions/checkout@v2
+    - name: Run session service containers
+      run:
+        docker run -d --name=mongoDB --net=cbio-net -e MONGO_INITDB_DATABASE=session_service mongo:3.6.6
+
+    - uses: actions/checkout@v2
+    - name: Run session service containers
+      run:
+        docker run -d --name=cbio-session-service --net=cbio-net -e SERVER_PORT=5000 -e JAVA_OPTS="-Dspring.data.mongodb.uri=mongodb://mongoDB:27017/session-service" cbioportal/session-service:latest
+
+    - uses: actions/checkout@v2
+    - name: Run cbioportal web server
+      run:
+        docker run -d --restart=always --name=cbioportal-container --net=cbio-net -v src/main/resources/portal.properties:/cbioportal/portal.properties:ro -e JAVA_OPTS='-Xms2g -Xmx4g -Dauthenticate=noauthsessionservice -Dsession.service.url=http://cbio-session-service:5000/api/sessions/my_portal/' -p 8081:8080 cbioportal/cbioportal:latest /bin/sh -c 'java ${JAVA_OPTS} -jar webapp-runner.jar /cbioportal-webapp'
