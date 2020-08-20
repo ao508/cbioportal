@@ -1609,4 +1609,45 @@ public final class DaoMutation {
         }
         return !(sqlQueryResult > 0);
     }
+    
+    public static void printDuplicateMutationEvents() throws DaoException{
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        System.out.println("\n\n\n DUPLICATE MUTATION EVENTS!");
+        try {
+            con = JdbcUtil.getDbConnection(DaoMutation.class);
+            pstmt = con.prepareStatement(
+                    "SELECT  ENTREZ_GENE_ID, CHR, START_POSITION, END_POSITION, TUMOR_SEQ_ALLELE, PROTEIN_CHANGE, MUTATION_TYPE, COUNT(*) FROM mutation_event GROUP BY ENTREZ_GENE_ID, CHR, START_POSITION, END_POSITION, TUMOR_SEQ_ALLELE, PROTEIN_CHANGE, MUTATION_TYPE HAVING COUNT(*) >1");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                /**
+                 * 1    ENTREZ_GENE_ID  LONG
+                 * 2    CHR STRING
+                 * 3    START_POSITION  LONG
+                 * 4    END_POSITION    LONG
+                 * 5    TUMOR_SEQ_ALLELE    TEXT/STRING
+                 * 6    PROTEIN_CHANGE  STRING
+                 * 7    MUTATION_TYPE   STRING
+                 * 8    COUNT   LONG/INT?
+                 */
+                String[] record = new String[]{
+                    String.valueOf(rs.getLong(1)),
+                    rs.getString(2),
+                    String.valueOf(rs.getLong(3)),
+                    String.valueOf(rs.getLong(4)),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    String.valueOf(rs.getInt(8))
+                };
+                System.out.println(StringUtils.join(record, "\t"));
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            JdbcUtil.closeAll(DaoMutation.class, con, pstmt, rs);
+        }
+    }
 }
