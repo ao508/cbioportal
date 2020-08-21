@@ -1632,18 +1632,16 @@ public final class DaoMutation {
                  * 7    MUTATION_TYPE   STRING
                  * 8    COUNT   LONG/INT?
                  */
-                String[] record = new String[]{
-                    String.valueOf(rs.getLong(1)),
-                    rs.getString(2),
-                    String.valueOf(rs.getLong(3)),
-                    String.valueOf(rs.getLong(4)),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    String.valueOf(rs.getInt(8))
+                    String record = Long.toString(rs.getLong(1)) + "," +
+                    rs.getString(2) + "," + 
+                    Long.toString(rs.getLong(3)) + "," +
+                    Long.toString(rs.getLong(4)) + "," +
+                    rs.getString(5) + "," +
+                    rs.getString(6) + "," +
+                    rs.getString(7);
+                    System.out.println(record);
                 };
-                System.out.println(StringUtils.join(record, "\t"));
-            }
+
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
