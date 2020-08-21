@@ -502,7 +502,6 @@ public class ImportExtendedMutationData{
         // run sanity check on `mutation_event` to determine whether duplicate
         // events were introduced during current import
         if (DaoMutation.hasDuplicateMutationEvents()) {
-            DaoMutation.printDuplicateMutationEvents();
             throw new DaoException("Duplicate mutation events were detected during this import. Aborting...");
         }
 
