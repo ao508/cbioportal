@@ -99,15 +99,14 @@ public final class DaoMutation {
     public static int addMutationEvent(ExtendedMutation.MutationEvent event) throws DaoException {
         // use this code if bulk loading
         // write to the temp file maintained by the MySQLbulkLoader
-
-            String record = Long.toString(event.getGene().getEntrezGeneId()) + "," +
-                Long.toString(event.getStartPosition()) + "," +
-                Long.toString(event.getEndPosition()) + "," +
-                event.getReferenceAllele() + "," + 
-                event.getTumorSeqAllele() + "," +
-                event.getMutationType() + "," +
-                event.getProteinChange();
-                System.out.println(record);
+            //String record = Long.toString(event.getGene().getEntrezGeneId()) + "," +
+            //    Long.toString(event.getStartPosition()) + "," +
+            //    Long.toString(event.getEndPosition()) + "," +
+            //    event.getReferenceAllele() + "," + 
+            //    event.getTumorSeqAllele() + "," +
+            //    event.getMutationType() + "," +
+            //    event.getProteinChange();
+                System.out.println(event);
 
 
         String keyword = MutationKeywordUtils.guessOncotatorMutationKeyword(event.getProteinChange(), event.getMutationType());
