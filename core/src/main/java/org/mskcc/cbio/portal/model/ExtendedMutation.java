@@ -336,7 +336,7 @@ public final class ExtendedMutation
             if (this.gene != other.gene && (this.gene == null || !this.gene.equals(other.gene))) {
                 return false;
             }
-            if ((this.chr == null) ? (other.chr != null) : !this.chr.equalsIgnoreCase(other.chr)) {
+            if ((this.chr == null) ? (other.chr != null) : !this.chr.toUpperCase().equals(other.chr.toUpperCase())) {
                 return false;
             }
             if (this.startPosition != other.startPosition) {
@@ -345,13 +345,13 @@ public final class ExtendedMutation
             if (this.endPosition != other.endPosition) {
                 return false;
             }
-            if ((this.proteinChange == null) ? (other.proteinChange != null) : !this.proteinChange.equalsIgnoreCase(other.proteinChange)) {
+            if ((this.proteinChange == null) ? (other.proteinChange != null) : !this.proteinChange.toUpperCase()(other.proteinChange.toUpperCase())) {
                 return false;
             }
-            if ((this.tumorSeqAllele == null) ? (other.tumorSeqAllele != null) : !this.tumorSeqAllele.equalsIgnoreCase(other.tumorSeqAllele)) {
+            if ((this.tumorSeqAllele == null) ? (other.tumorSeqAllele != null) : !this.tumorSeqAllele.toUpperCase(other.tumorSeqAllele.toUpperCase())) {
                 return false;
             }
-            if ((this.mutationType == null) ? (other.mutationType != null) : !this.mutationType.equalsIgnoreCase(other.mutationType)) {
+            if ((this.mutationType == null) ? (other.mutationType != null) : !this.mutationType.toUpperCase(other.mutationType.toUpperCase())) {
                 return false;
             }
             return true;
