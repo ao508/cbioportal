@@ -381,7 +381,13 @@ public class ImportExtendedMutationData{
                             "' (chr,start,end,ref,tum1,tum2) = (" + record.getChr() + "," + record.getStartPosition() + "," +
                             record.getEndPosition() + "," + record.getReferenceAllele() + "," + record.getTumorSeqAllele1() +
                             "," + record.getTumorSeqAllele2() + ")");
-                    }
+                    } else {
+                        ProgressMonitor.logWarning("Tumor allele resolved to: '" + sample.getStableId() +
+                            "' (chr,start,end,ref,tum1,tum2) = (" + record.getChr() + "," + record.getStartPosition() + "," +
+                            record.getEndPosition() + "," + record.getReferenceAllele() + "," + record.getTumorSeqAllele1() +
+                            "," + record.getTumorSeqAllele2() + ")");
+		    }
+
                     mutation.setDbSnpRs(record.getDbSNP_RS());
                     mutation.setDbSnpValStatus(record.getDbSnpValStatus());
                     mutation.setMatchedNormSampleBarcode(record.getMatchedNormSampleBarcode());
