@@ -22,15 +22,17 @@ cBioPortal is a multimodal cancer data visualization tool and supports a variety
 
 There are several other data types for which there is no native support. However cBioPortal offers a generic way of linking in additional viewers using the [Resource Data Format](./File-Formats.md#resource-data). Technically this is known as an iframe link. These viewers can be linked at the cohort, patient or individual sample level. Beyond just linking viewers, we also have several suggestions on what kind of derived data can be added from these assays directly into cBioPortal for multimodal analysis. This mainly leverages the [Generic Assay Format](./File-Formats.md#generic-assay).
 
+A linked resource can also carry per-item metadata — the stain, magnification or percent tumor cells of an individual slide, say. Those fields become searchable, sortable and filterable columns in the study's Files & Links tab, so a researcher can narrow thousands of linked images down to the few worth opening instead of paging through a list of links. A curator decides how each field is labelled, typed and filtered through the [CUSTOM_METADATA contract](./File-Formats.md#describing-metadata-columns-with-custom_metadata).
+
 | Assay | External Viewer | Derived data to load into cBioPortal | Example cBioPortal Study |
 | --- | --- | --- | --- |
-| scRNAseq | CellxGene, Vitesssce, Broad Single Cell Portal | Cell fractions per sample, pseudobulk expression per gene per sample | [HTAN Vanderbilt (Cell, 2021)](https://www.cbioportal.org/study/summary?id=msk_spectrum_tme_2022) |
+| scRNAseq | [cBioPortal Cell Explorer](https://cell-explorer.cbioportal.org) ([source](https://github.com/cBioPortal/cbioportal-cell-explorer)), CellxGene, Vitessce, Broad Single Cell Portal | Cell fractions per sample, pseudobulk expression per gene per sample | [HTAN Vanderbilt (Cell, 2021)](https://www.cbioportal.org/study/summary?id=msk_spectrum_tme_2022) |
 | GeoMx | Minerva | RNA expression per Region of Interest | [Ovarian Cancer (Gray Foundation, Cancer Discov 2024)](https://www.cbioportal.org/study/summary?id=ovary_geomx_gray_foundation_2024) |
 | CyCIF/ORION | Minerva | Cell marker density in tumor regions | [Colorectal Adenocarcinoma (DFCI/Orion, 2024)](https://www.cbioportal.org/study/summary?id=crc_orion_2024) |
 | H&E | Minerva, CDSA| | [MSK SPECTRUM (Nature, 2022)](https://www.cbioportal.org/patient/openResource_HE?studyId=msk_spectrum_tme_2022&caseId=P-0042164) |
 | CT | OHIF | Tumor volume, density, etc. | [TCGA Pancan (Cell, 2021)](https://viewer.imaging.datacommons.cancer.gov/viewer/1.3.6.1.4.1.14519.5.2.1.8421.4017.206944705526266221852495854472) |
-| scDNAseq | CellxGene, Vitesssce, Broad Single Cell Portal | | |
-| scATACseq | CellxGene, Vitesssce, Broad Single Cell Portal | | |
+| scDNAseq | CellxGene, Vitessce, Broad Single Cell Portal | | |
+| scATACseq | CellxGene, Vitessce, Broad Single Cell Portal | | |
 | Tapestri | TBD | Protein expression per sample | TBD |
 | 3D CyCIF | TBD | TBD | TBD |
 | Your custom assay | Your custom viewer | Any sample-level or patient-level data | |
